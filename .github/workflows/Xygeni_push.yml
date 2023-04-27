@@ -46,10 +46,11 @@ jobs:
           docker exec lgv_scanner bash -c "ls -l"
           docker exec lgv_scanner bash -c "cat /app/.git/config"
           docker exec lgv_scanner bash -c "chmod 777 /app"
-          docker exec lgv_scanner bash -c "git -C /app rev-parse --show-toplevel"
-
+          docker exec lgv_scanner bash -c "git -c safe.directory='/app' rev-parse --show-toplevel"
+          
+      # docker exec lgv_scanner bash -c "git -C /app rev-parse --show-toplevel"
       # docker exec lgv_scanner bash -c "git config --global --add safe.directory /app"   
-       
+
       # Runs Xygeni-Scanner
       - name: Xygeni-Scanner
         uses: xygeni/xygeni-action@d49874592070405031babbe1706d026ac77ffb2a

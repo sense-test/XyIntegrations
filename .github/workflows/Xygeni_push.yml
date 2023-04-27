@@ -41,8 +41,9 @@ jobs:
           pwd
           ls -la
           git -C /home/runner/work/XyIntegrations/XyIntegrations rev-parse --show-toplevel
-          docker run -d -v /home/runner/work/XyIntegrations/XyIntegrations:/app -t xygeni/xygeni_scanner --name lgv_scanner
+          docker run -d -v /home/runner/work/XyIntegrations/XyIntegrations:/app --name lgv_scanner -t xygeni/xygeni_scanner 
           docker ps 
+          docker exec lgv_scanner bash -c "ls -l"
           
       # Runs Xygeni-Scanner
       - name: Xygeni-Scanner

@@ -45,6 +45,7 @@ jobs:
           docker ps 
           docker exec lgv_scanner bash -c "ls -l"
           docker exec lgv_scanner bash -c "cat /app/.git/config"
+          docker exec lgv_scanner bash -c "git config --global --add safe.directory /app"
           docker exec lgv_scanner bash -c "git -C /app rev-parse --show-toplevel"
           
       # Runs Xygeni-Scanner

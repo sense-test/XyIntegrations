@@ -45,13 +45,13 @@ jobs:
           #token: ${{ secrets.XYGENI_TOKEN }}
           
           # Base URL of the Xygeni API.# optional, default is https://api.xygeni.io
-          xygeni_url: ${{ secrets.XY_DEMO_PRUEBAS_URL }}
+          xygeni_url: https://apidemo.xygeni.io/deps-doctor-service
           
           # Username (using API token is recommended)
-          username: ${{ secrets.XY_DEMO_PRUEBAS_USERNAME }}
+          username: luis.garcia+test@xygeni.io
           
           # Password (using API token is recommended)
-          password: ${{ secrets.XY_DEMO_PRUEBAS_PASSWORD }}
+          password: 70vuvFNx_
           
           # Command to execute by the scanner, optional, default is scan --never-fail -n ${{ github.repository }} -d /app
           command: scan --never-fail -n ${{ github.repository }} -d /app 

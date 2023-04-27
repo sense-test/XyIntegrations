@@ -40,6 +40,7 @@ jobs:
           echo ${GITHUB_PAT}
           pwd
           ls -la
+          git -C /home/runner/work/XyIntegrations/XyIntegrations rev-parse --show-toplevel
           
       # Runs Xygeni-Scanner
       - name: Xygeni-Scanner

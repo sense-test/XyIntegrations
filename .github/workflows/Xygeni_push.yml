@@ -48,7 +48,7 @@ jobs:
           xygeni_url: ${{ secrets.XY_DEMO_PRUEBAS_URL }}
           
           # Username (using API token is recommended)
-          username: ${{ secrets.XY_DEMO_PRUEBAS_USER }}
+          username: ${{ secrets.XY_DEMO_PRUEBAS_USERNAME }}
           
           # Password (using API token is recommended)
           password: ${{ secrets.XY_DEMO_PRUEBAS_PASSWORD }}

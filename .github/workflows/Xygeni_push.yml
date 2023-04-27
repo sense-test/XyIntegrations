@@ -44,6 +44,7 @@ jobs:
           docker run -d -v /home/runner/work/XyIntegrations/XyIntegrations:/app --name lgv_scanner -t xygeni/xygeni_scanner 
           docker ps 
           docker exec lgv_scanner bash -c "ls -l"
+          docker exec lgv_scanner bash -c "cat /app/.git/config"
           
       # Runs Xygeni-Scanner
       - name: Xygeni-Scanner

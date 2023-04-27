@@ -38,6 +38,7 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
           echo ${GITHUB_PAT}
+          ls -la
           
       # Runs Xygeni-Scanner
       - name: Xygeni-Scanner

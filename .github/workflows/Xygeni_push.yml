@@ -42,10 +42,10 @@ jobs:
         with:
         
           # API token. Must be provided, or username/password as alternative.
-          token: ${{ secrets.XY_PRO_TOKEN }}
+          token: ${{ secrets.XY_DEMO_PRUEBAS_PASSWORD }}
           
           # Base URL of the Xygeni API.# optional, default is https://api.xygeni.io
-          xygeni_url: https://api.xygeni.io
+          xygeni_url: https://apidemo.xygeni.io/deps-doctor-service
           
           # Username (using API token is recommended)
           #username: lmgarciaviejo@gmail.com

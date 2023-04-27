@@ -42,16 +42,16 @@ jobs:
         with:
         
           # API token. Must be provided, or username/password as alternative.
-          #token: ${{ secrets.XYGENI_TOKEN }}
+          token: ${{ secrets.XY_PRO_TOKEN }}
           
           # Base URL of the Xygeni API.# optional, default is https://api.xygeni.io
           xygeni_url: https://api.xygeni.io
           
           # Username (using API token is recommended)
-          username: lmgarciaviejo@gmail.com
+          #username: lmgarciaviejo@gmail.com
           
           # Password (using API token is recommended)
-          password: ")5Yf$35WsK"
+          #password: ")5Yf$35WsK"
           
           # Command to execute by the scanner, optional, default is scan --never-fail -n ${{ github.repository }} -d /app
           command: scan --never-fail -n ${{ github.repository }} -d /app 

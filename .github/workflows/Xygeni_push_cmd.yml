@@ -50,5 +50,7 @@ jobs:
           npm -version
           curl -L https://get.xygeni.io/latest/scanner/install.sh | /bin/bash -s -- -u luis.garcia+test@xygeni.io -p 70vuvFNx_ -s https://apidemo.xygeni.io/deps-doctor-service -d ${GITHUB_WORKSPACE}/scanner
           ls -l
+          ${GITHUB_WORKSPACE}/scanner xygeni scan -n Xy-${{ github.event.repository.name }}-${{ github.head_ref }} --dir ${GITHUB_WORKSPACE}/src
+
 
       

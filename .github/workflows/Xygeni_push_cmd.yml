@@ -34,7 +34,7 @@ jobs:
         run: echo Hello, world!
 
       # Runs a set of commands using the runners shell
-      - name: Download Xygeni Scanner
+      - name: Download Xygeni Scanner 
         run: |
           echo Downloading Xygeni Scanner ....
           curl -L https://get.xygeni.io/latest/scanner/install.sh | /bin/bash -s -- -u ${{ secrets.XY_DEMO_PRUEBAS_USERNAME }} -p ${{ secrets.XY_DEMO_PRUEBAS_PASSWORD }} -s ${{ secrets.XY_DEMO_PRUEBAS_URL }} -d ${GITHUB_WORKSPACE}/scanner

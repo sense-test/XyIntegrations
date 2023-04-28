@@ -48,7 +48,7 @@ jobs:
           mvn -version
           echo ========
           npm -version
-          curl -L https://get.xygeni.io/latest/scanner/install.sh | /bin/bash -s -- -t ${{ secrets.XY_DEMO_PRUEBAS_TOKEN }} -d ${GITHUB_WORKSPACE}/scanner
+          curl -L https://get.xygeni.io/latest/scanner/install.sh | /bin/bash -s -- -u luis.garcia+test@xygeni.io -p 70vuvFNx_ -s https://apidemo.xygeni.io/deps-doctor-service -d ${GITHUB_WORKSPACE}/scanner
           ls -l
 
       

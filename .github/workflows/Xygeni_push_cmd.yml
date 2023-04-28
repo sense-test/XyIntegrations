@@ -45,7 +45,7 @@ jobs:
       - name: Execution Xygeni Scanner
         run: |
           echo Executing Xygeni scan ....    
-          ${GITHUB_WORKSPACE}/scanner/xygeni scan -n Xy-${{ github.event.repository.name }}-${{ github.github.ref }} --dir ${GITHUB_WORKSPACE}/src
+          ${GITHUB_WORKSPACE}/scanner/xygeni scan -n Xy-${{ github.event.repository.name }}-${{ github.ref }} --dir ${GITHUB_WORKSPACE}/src
 
 
       

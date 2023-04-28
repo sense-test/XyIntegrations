@@ -5,8 +5,8 @@ name: Scanner on push
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
-  #push:
-  #  branches: [ "main" ]
+  push:
+    branches: [ "main" ]
   #pull_request:
   #  branches: [ "main" ]
 
@@ -70,4 +70,4 @@ jobs:
           password: ${{ secrets.XY_DEMO_PRUEBAS_PASSWORD }}
           
           # Command to execute by the scanner, optional, default is scan --never-fail -n ${{ github.repository }} -d /app
-          command: scan --never-fail -n ${{ github.repository }} -d /app 
+          command: scan --never-fail -n ${{ github.repository }} -d /app/src 

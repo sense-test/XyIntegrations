@@ -46,6 +46,9 @@ jobs:
         run: |
           echo Executing Xygeni scan ....    
           ${GITHUB_WORKSPACE}/scanner/xygeni scan -n Xy-${{ github.event.repository.name }}-CMD --dir ${GITHUB_WORKSPACE}/src
+          echo =======
+          ls -l ${GITHUB_WORKSPACE}/src
+          
 
 
       

@@ -40,8 +40,13 @@ jobs:
           echo ${GITHUB_PAT}
           pwd
           ls -la
+          echo ========
           java -version
+          echo ========
           echo $JAVA_HOME
+          echo ========
           mvn -version
+          echo ========
+          npm -version
 
       

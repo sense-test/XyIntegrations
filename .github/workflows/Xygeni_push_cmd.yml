@@ -41,5 +41,6 @@ jobs:
           pwd
           ls -la
           java -version
+          echo $JAVA_HOME
 
       

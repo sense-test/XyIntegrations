@@ -40,6 +40,6 @@ jobs:
           echo ${GITHUB_PAT}
           pwd
           ls -la
-          java - version
+          java -version
 
       

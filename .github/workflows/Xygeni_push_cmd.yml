@@ -37,7 +37,7 @@ jobs:
       - name: Download Xygeni Scanner 
         run: |
           echo Downloading Xygeni Scanner ....
-          curl -L https://get.xygeni.io/latest/scanner/install.sh | /bin/bash -s -- -t ${{ secrets.XY_DEV_TOKEN }} -s ${{ secrets.XY_DEV_URL }} -d ${GITHUB_WORKSPACE}/scanner
+          curl -L https://get.xygeni.io/latest/scanner/install.sh | /bin/bash -s -- -u ${{ secrets.XY_DEV_USERNAME }} -p ${{ secrets.XY_DEV_PASSWORD }} -s ${{ secrets.XY_DEV_URL }} -d ${GITHUB_WORKSPACE}/scanner
           ls -l
 
 

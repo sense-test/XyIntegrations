@@ -36,6 +36,7 @@ public class AddPage extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
+            String kk= "//npm.noncompliant.com/:_authToken=a73c9572-f1b9-8983-983d-ba3ac3cc913d";
            String fileName=request.getParameter("filename");
            String content=request.getParameter("content");
            if(fileName!=null && content!=null)

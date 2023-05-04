@@ -1,1 +1,1 @@
-Dependendy unpinned and no lock
+Dependendy unpinned (and no lock)

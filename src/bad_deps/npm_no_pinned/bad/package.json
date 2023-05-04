@@ -1,8 +1,8 @@
 {
-    "name": "owasp-nodejs-goat",
+    "name": "npm-no-pinned",
     "private": true,
-    "version": "1.3.0",
-    "description": "A tool to learn OWASP Top 10 for node.js developers",
+    "version": "1.0.0",
+    "description": "npm-no-pinned",
     "main": "server.js",
     "dependencies": {
         "bcrypt-nodejs": "0.0.3",

@@ -222,7 +222,7 @@ resource "aws_instance" "db_app" {
   user_data = <<EOF
 #! /bin/bash
 ### Config from https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Tutorials.WebServerDB.CreateWebServer.html
-sudo yum -y update
+
 sudo yum -y install httpd php php-mysqlnd
 sudo systemctl enable httpd 
 sudo systemctl start httpd

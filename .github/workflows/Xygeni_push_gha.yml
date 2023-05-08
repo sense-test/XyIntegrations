@@ -49,7 +49,7 @@ jobs:
       #    docker exec lgv_scanner bash -c "git -C /app rev-parse --show-toplevel"
 
       # docker exec lgv_scanner bash -c "git -C /app rev-parse --show-toplevel"
-      # docker exec lgv_scanner bash -c "git config --global --add safe.directory /app"   
+      # docker exec lgv_scanner bash -c "git config --global --add safe.directory /app"    
 
       # Runs Xygeni-Scanner
       - name: Xygeni-Scanner

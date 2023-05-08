@@ -47,7 +47,7 @@ jobs:
       - name: Execution Xygeni Scanner
         run: |
           echo Executing Xygeni scan ....    
-          ${GITHUB_WORKSPACE}/scanner/xygeni misconf -n Xy-${{ github.event.repository.name }}-CMD --dir ${GITHUB_WORKSPACE}/src
+          ${GITHUB_WORKSPACE}/scanner/xygeni deps -n Xy-${{ github.event.repository.name }}-CMD --dir ${GITHUB_WORKSPACE}/src
           echo =======
           ls -al ${GITHUB_WORKSPACE}/src
           echo =======

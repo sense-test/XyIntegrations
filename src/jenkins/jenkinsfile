@@ -16,7 +16,7 @@ pipeline {
 
     stages {
 
-            //stage('SCM') {
+            //stage('SCM') { 
             //    steps {
 	        //        echo "Fetching source code"
 			//	    checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/luisgarciacheckmarx/LGV_onefile']]]	);

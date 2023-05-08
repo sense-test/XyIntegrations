@@ -59,6 +59,8 @@ jobs:
         
           # API token. Must be provided, or username/password as alternative.
           #token: ${{ secrets.XY_DEMO_PRUEBAS_TOKEN }}
+
+          gh_token: ${{ secrets.GH_PAT }}
           
           # Base URL of the Xygeni API.# optional, default is https://api.xygeni.io
           xygeni_url: ${{ secrets.XY_DEMO_PRUEBAS_URL }}

@@ -16,7 +16,7 @@ variables:
     value: $[variables.XY_DEMO_PRUEBAS_URL]
 
 stages:
-- stage: Security
+- stage: Security 
   jobs:
   - job: "Xy_Scanner"
     steps:

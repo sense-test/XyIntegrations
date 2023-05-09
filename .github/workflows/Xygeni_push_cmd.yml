@@ -44,10 +44,11 @@ jobs:
       # Runs a set of commands using the runners shell
       #${GITHUB_WORKSPACE}/scanner/xygeni scan --never-fail -n Xy-${{ github.event.repository.name }}-CMD --dir ${GITHUB_WORKSPACE}/src --all-files
       #${GITHUB_WORKSPACE}/scanner/xygeni inventory  --upload --never-fail -n Xy-${{ github.event.repository.name }}-CMD --dir ${GITHUB_WORKSPACE}/src
+      #${GITHUB_WORKSPACE}/scanner/xygeni scan --upload -n GH-${{ github.event.repository.name }}-push-${{ github.ref }}-CMD --dir ${GITHUB_WORKSPACE}/src
       - name: Execution Xygeni Scanner
         run: |
           echo Executing Xygeni scan ....    
-          ${GITHUB_WORKSPACE}/scanner/xygeni scan --upload -n GH-${{ github.event.repository.name }}-push-${{ github.ref }}-CMD --dir ${GITHUB_WORKSPACE}/src
+          ${GITHUB_WORKSPACE}/scanner/xygeni codetamper --all --upload -n GH-${{ github.event.repository.name }}-push-${{ github.ref }}-CMD --dir ${GITHUB_WORKSPACE}/src
           echo =======
           ls -al ${GITHUB_WORKSPACE}/src
           echo =======

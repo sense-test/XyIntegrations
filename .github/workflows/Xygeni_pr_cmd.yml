@@ -50,6 +50,5 @@ jobs:
           ls -al ${GITHUB_WORKSPACE}/src
           echo =======
           ls -al 
-          ls -al
 
       

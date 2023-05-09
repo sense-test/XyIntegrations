@@ -44,12 +44,13 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Execution Xygeni Scanner
         run: |
+          git log
           echo Executing Xygeni scan ....    
           ${GITHUB_WORKSPACE}/scanner/xygeni scan --never-fail -n GH-${{ github.event.repository.name }}-pr-${{ github.head_ref }}-CMD --dir ${GITHUB_WORKSPACE}/src
           echo =======
           ls -al ${GITHUB_WORKSPACE}/src
           echo =======
           ls -al 
-          git log
+          
 
       

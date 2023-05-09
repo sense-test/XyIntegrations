@@ -24,7 +24,6 @@ stages:
       displayName: 'Install xygeni scanner'
       inputs:
         script: |
-            curl -L https://get.xygeni.io/latest/scanner/install.sh | /bin/bash -s -- -u $(vXY_DEMO_PRUEBAS_USERNAME) -p $(vXY_DEMO_PRUEBAS_PASSWORD) -s $(vXY_DEMO_PRUEBAS_URL) -d $(Build.SourcesDirectory)/scanner
             ls -l
             java -version
             whoami
@@ -38,6 +37,7 @@ stages:
         targetType: 'inline'
         script: |
             pwd
+            curl -L https://get.xygeni.io/latest/scanner/install.sh | /bin/bash -s -- -u $(vXY_DEMO_PRUEBAS_USERNAME) -p $(vXY_DEMO_PRUEBAS_PASSWORD) -s $(vXY_DEMO_PRUEBAS_URL) -d $(Build.SourcesDirectory)/scanner
             ls -l $(Build.SourcesDirectory)/scanner
             $(Build.SourcesDirectory)/scanner/xygeni scan --upload -n Xy-$(System.TeamProject)-ADO --dir $(Build.SourcesDirectory)/src      
             

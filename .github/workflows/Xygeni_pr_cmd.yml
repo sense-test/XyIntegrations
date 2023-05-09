@@ -45,7 +45,7 @@ jobs:
       - name: Execution Xygeni Scanner
         run: |
           echo Executing Xygeni scan ....    
-          ${GITHUB_WORKSPACE}/scanner/xygeni scan --never-fail -n GH-${{ github.event.repository.name }}-pr-CMD --dir ${GITHUB_WORKSPACE}/src
+          ${GITHUB_WORKSPACE}/scanner/xygeni scan --never-fail -n GH-${{ github.event.repository.name }}-pr-${{ github.head_ref }}-CMD --dir ${GITHUB_WORKSPACE}/src
           echo =======
           ls -al ${GITHUB_WORKSPACE}/src
           echo =======

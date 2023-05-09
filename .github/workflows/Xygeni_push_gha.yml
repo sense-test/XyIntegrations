@@ -73,4 +73,4 @@ jobs:
           
           # Command to execute by the scanner, optional, default is scan --never-fail -n ${{ github.repository }} -d /app
           # -n ${{ github.repository }}-GHA
-          command: scan --never-fail -n Xy-${{ github.event.repository.name }}-push-GHA -d /app/src 
+          command: scan --never-fail -n GH-${{ github.event.repository.name }}-push-GHA -d /app/src 

@@ -38,6 +38,6 @@ stages:
         targetType: 'inline'
         script: |
             pwd
-            ls -l
+            ls -l $(Build.SourcesDirectory)/scanner
             $(Build.SourcesDirectory)/scanner/xygeni scan --upload -n Xy-$(System.TeamProject)-ADO --dir $(Build.SourcesDirectory)/src      
             

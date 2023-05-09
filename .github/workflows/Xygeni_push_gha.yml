@@ -49,16 +49,18 @@ jobs:
       #    docker exec lgv_scanner bash -c "git -C /app rev-parse --show-toplevel"
 
       # docker exec lgv_scanner bash -c "git -C /app rev-parse --show-toplevel"
-      # docker exec lgv_scanner bash -c "git config --global --add safe.directory /app"   
+      # docker exec lgv_scanner bash -c "git config --global --add safe.directory /app"    
 
       # Runs Xygeni-Scanner
       - name: Xygeni-Scanner
-        uses: xygeni/xygeni-action@d49874592070405031babbe1706d026ac77ffb2a
+        uses: xygeni/xygeni-action@v2.1
         id: Xygeni-Scanner
         with:
         
           # API token. Must be provided, or username/password as alternative.
           #token: ${{ secrets.XY_DEMO_PRUEBAS_TOKEN }}
+
+          gh_token: ${{ secrets.GH_PAT }}
           
           # Base URL of the Xygeni API.# optional, default is https://api.xygeni.io
           xygeni_url: ${{ secrets.XY_DEMO_PRUEBAS_URL }}

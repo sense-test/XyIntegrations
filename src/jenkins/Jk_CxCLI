@@ -1,0 +1,187 @@
+
+pipeline {
+    agent any
+    tools { 
+        maven 'Maven' 
+        gradle 'Gradle'
+    }
+
+    environment {
+        CX_SERVER           = credentials('CX_SERVER')
+        CX_CRED             = credentials('CX_CRED')
+        JIRA_API_TOKEN      = credentials('JIRA_API_TOKEN')
+        SCA_CRED            = credentials('SCA_CRED')
+        SCA_TENANT          = credentials('SCA_TENANT')
+    }
+
+    stages {
+
+            //stage('SCM') {
+            //    steps {
+	        //        echo "Fetching source code"
+			//	    checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/luisgarciacheckmarx/LGV_onefile']]]	);
+			//	
+            //    }
+            //}
+
+
+            stage('Cx CLI download') {
+                steps {
+	                echo "Downloading SCA Resolver"
+			        sh 'curl -L https://download.checkmarx.com/9.5.0/Plugins/CxConsolePlugin-1.1.18.zip -o CxConsolePlugin-1.1.18.zip'
+			        sh 'unzip -o CxConsolePlugin-1.1.18.zip -d CxConsolePlugin'
+			        sh 'rm CxConsolePlugin-1.1.18.zip'
+                    sh 'ls -l '
+                    sh 'chmod +x ${WORKSPACE}/CxConsolePlugin/runCxConsole.sh'
+                    //sh '${WORKSPACE}/CxConsolePlugin/runCxConsole.sh'
+                }
+            }
+
+
+            stage('SCA Resolver download') {
+                steps {
+	                echo "Downloading SCA Resolver"
+			        sh 'curl -L https://sca-downloads.s3.amazonaws.com/cli/1.9.10/ScaResolver-linux64.tar.gz -o ScaResolver-linux64.tar.gz'
+			        sh 'tar -xvf ScaResolver-linux64.tar.gz'
+			        sh 'rm ScaResolver-linux64.tar.gz'
+			        sh 'chmod +x ScaResolver'
+				    sh 'rm -f ${WORKSPACE}/.cxsca-results.json'		
+                    sh 'rm -rf ${WORKSPACE}/logs' 
+                    sh 'mvn --version'
+                    sh 'gradle --version'
+                    sh 'echo $MAVEN_HOME'
+                    sh 'echo $GRADLE_HOME'
+                    sh 'echo $PATH'
+                    sh 'echo $KK'
+                    //sh '${WORKSPACE}/ScaResolver offline -s /var/lib/jenkins/workspace/CxIntegrations -n CxIntegrations -r /var/lib/jenkins/workspace/CxIntegrations --log-level Debug'
+                    //sh 'kk'
+                }
+            }
+            
+            stage('Execute Cx CLI scan') {
+                steps {
+                
+                    script {
+
+                        def _CLIParameters = "${WORKSPACE}/CxConsolePlugin/runCxConsole.sh " +
+                                            "Scan -v " +
+                                            "-Projectname  /CxServer/${JOB_BASE_NAME} " +
+                                            "-cxServer ${env.CX_SERVER} " +
+                                            "-cxuser ${env.CX_CRED_USR} " +
+                                            "-cxpassword ${env.CX_CRED_PSW} " +
+                                            "-locationtype folder " +
+                                            "-locationpath ${WORKSPACE} " +
+                                            "-Incremental " +
+                                            "-enableSca " +
+                                            "-scaUsername ${env.SCA_CRED_USR} " +
+                                            "-scaPassword ${env.SCA_CRED_PSW} " +
+                                            "-scaAccount ${env.SCA_TENANT} " +
+                                            "-cxsasturl ${env.CX_SERVER} " +
+                                            "-cxsastuser ${env.CX_SERVER} " +
+                                            "-cxsastpass ${env.CX_CRED_PSW} " +
+                                            "-cxsastprojectname /CxServer/${JOB_BASE_NAME} " +
+                                            "-enablescaresolver " +
+                                            "-pathtoresolver ${WORKSPACE} " +
+                                            "-scaresolveraddparameters \"-s ${WORKSPACE} -n ${JOB_BASE_NAME} -r ${WORKSPACE}  --cxserver ${env.CX_SERVER} --cxuser ${env.CX_CRED_USR} --cxpassword ${env.CX_CRED_PSW} --cxprojectname ${JOB_BASE_NAME} --sast-result-path ${WORKSPACE}/.cxsca-sast-results.json --log-level Debug \" "
+
+                        println _CLIParameters
+
+                        sh _CLIParameters
+
+                    }
+                }
+            }
+            
+
+            stage('Execute Cx scan') {
+                steps {
+                
+                    script {
+
+                        if (true) {
+                            return
+                        }
+
+                        def _cxServerURL    = "${env.CX_SERVER}"
+                        def _cxUsername     = "${env.CX_CRED_USR}"
+                        def _cxPassword     = "${env.CX_CRED_PSW}"
+                        
+                        // "--maven-parameters=' -gs ${WORKSPACE}/settings.xml ' " +
+                        def _scaResolverAddParameters = "-s ${WORKSPACE} " +
+                                                        "-n ${JOB_BASE_NAME} " +
+                                                        "-r ${WORKSPACE} " +
+                                                        "--maven-parameters=\"-gs /var/lib/jenkins/workspace/CxIntegrations/settings.xml\" " +
+                                                        "--cxserver " + _cxServerURL + " " +
+                                                        "--cxuser " + _cxUsername + " " +
+                                                        "--cxpassword " + _cxPassword + " " +
+                                                        "--cxprojectname ${JOB_BASE_NAME}" + " " +
+                                                        "--sast-result-path ${WORKSPACE}/lgv.txt" + " " +
+                                                        "--log-level Debug"
+
+
+                        println _scaResolverAddParameters
+
+
+                        // isExploitablePath: true, 
+                        // scaSASTProjectFullPath: '/CxServer/${JOB_BASE_NAME}', scaSASTProjectID: '', scaSastServerUrl: 'http://172.35.1.19',
+                        step([$class: 'CxScanBuilder', comment: '', configAsCode: false, credentialsId: 'CX_CRED', customFields: '', 
+                            sastEnabled: false,
+                            waitForResultsEnabled: true,
+                            serverUrl: _cxServerURL,
+                            incremental: true, forceScan: false, 
+                            isProxy: false,
+                            preset: '0', projectName: "${JOB_BASE_NAME}", 
+                            useOwnServerCredentials: true,
+                            enableProjectPolicyEnforcement: true, 
+                            dependencyScanConfig: [
+                                dependencyScannerType: 'SCA', 
+                                scaServerUrl: 'https://api-sca.checkmarx.net', 
+                                scaWebAppUrl: 'https://sca.checkmarx.net',
+                                scaAccessControlUrl: 'https://platform.checkmarx.net', 
+                                scaTenant: 'ps-team-emea',
+                                scaCredentialsId: 'SCA_CRED',
+                                scaTeamPath: '/CxServer', 
+                                enableScaResolver: 'SCA_RESOLVER', 
+                                pathToScaResolver: "${WORKSPACE}",
+                                scaResolverAddParameters: '-s /var/lib/jenkins/workspace/CxIntegrations -n kk -r kk --maven-parameters="-gs=/var/lib/jenkins/workspace/CxIntegrations/.cxsca.configurationsxxxx/settings.xml"',
+                                scaConfigFile: '', scaEnvVariables: '', 
+                                sastCredentialsId: 'CX_CRED', 
+                                isExploitablePath: true,
+                                isIncludeSources: false,
+                                scaSASTProjectFullPath: '/CxServer/CxIntegrations', scaSASTProjectID: '', scaSastServerUrl: 'http://172.35.1.19', 
+                                dependencyScanExcludeFolders: '', dependencyScanPatterns: '', 
+                                fsaVariables: '', osaArchiveIncludePatterns: '*.zip, *.war, *.ear, *.tgz', overrideGlobalConfig: true, 
+                                scaTimeout: 30
+                                ], 
+                            excludeFolders: '', exclusionsSetting: 'global', 
+                            failBuildOnNewResults: false, failBuildOnNewSeverity: 'HIGH', 
+                            filterPattern: '''!**/_cvs/**/*, !**/.svn/**/*, !**/.hg/**/*, !**/.git/**/*, !**/.bzr/**/*,
+                            !**/.gitgnore/**/*, !**/.gradle/**/*, !**/.checkstyle/**/*, !**/.classpath/**/*, !**/bin/**/*,
+                            !**/obj/**/*, !**/backup/**/*, !**/.idea/**/*, !**/*.DS_Store, !**/*.ipr, !**/*.iws,
+                            !**/*.bak, !**/*.tmp, !**/*.aac, !**/*.aif, !**/*.iff, !**/*.m3u, !**/*.mid, !**/*.mp3,
+                            !**/*.mpa, !**/*.ra, !**/*.wav, !**/*.wma, !**/*.3g2, !**/*.3gp, !**/*.asf, !**/*.asx,
+                            !**/*.avi, !**/*.flv, !**/*.mov, !**/*.mp4, !**/*.mpg, !**/*.rm, !**/*.swf, !**/*.vob,
+                            !**/*.wmv, !**/*.bmp, !**/*.gif, !**/*.jpg, !**/*.png, !**/*.psd, !**/*.tif, !**/*.swf,
+                            !**/*.jar, !**/*.zip, !**/*.rar, !**/*.exe, !**/*.dll, !**/*.pdb, !**/*.7z, !**/*.gz,
+                            !**/*.tar.gz, !**/*.tar, !**/*.gz, !**/*.ahtm, !**/*.ahtml, !**/*.fhtml, !**/*.hdm,
+                            !**/*.hdml, !**/*.hsql, !**/*.ht, !**/*.hta, !**/*.htc, !**/*.htd, !**/*.war, !**/*.ear,
+                            !**/*.htmls, !**/*.ihtml, !**/*.mht, !**/*.mhtm, !**/*.mhtml, !**/*.ssi, !**/*.stm,
+                            !**/*.bin,!**/*.lock,!**/*.svg,!**/*.obj,
+                            !**/*.stml, !**/*.ttml, !**/*.txn, !**/*.xhtm, !**/*.xhtml, !**/*.class, !**/*.iml, !Checkmarx/Reports/*.*,
+                            !OSADependencies.json, !**/node_modules/**/*''', 
+                            fullScanCycle: 10, groupId: '1', password: '{AQAAABAAAAAQezpXvgqDO15q+JQVu2odrm1teQZ434bUNgD0AJCLgis=}',  
+                            sourceEncoding: '6', username: '', vulnerabilityThresholdResult: 'FAILURE'])
+
+                    }
+
+			    }
+            }
+		
+		    stage('logs') {
+			    steps {
+			        sh "cat ${WORKSPACE}/logs/*/*" 
+			    }
+            }
+
+    }
+}

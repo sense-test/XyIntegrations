@@ -1,0 +1,12 @@
+{
+    "name": "npm-no-pinned",
+    "private": true,
+    "version": "1.0.0",
+    "description": "npm-no-pinned",
+    "main": "server.js",
+    "dependencies": {
+        "@behemothx00/cacademee": "0.0.1-security"
+    },
+    "repository": "https://github.com/OWASP/NodejsGoat",
+    "license": "Apache 2.0"
+  }

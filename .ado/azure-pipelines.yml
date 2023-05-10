@@ -20,9 +20,10 @@ stages:
   jobs:
   - job: "Xy_Scanner"
     steps:
-    - task: CmdLine@2
-      displayName: 'Install xygeni scanner'
+    - task: Bash@3
+      displayName: 'Install xygeni scanner '
       inputs:
+        targetType: 'inline'
         script: |
             ls -l
             java -version

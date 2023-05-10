@@ -14,7 +14,11 @@ on:
   workflow_dispatch:
 
 env:
-  GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+  #GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+  GITHUB_PAT: ${{ secrets.GH_PAT }}
+  XY_USERNAME: ${{ secrets.XY_USERNAME }}
+  XY_PASSWORD: ${{ secrets.XY_PASSWORD }}
+  XY_URL: ${{ secrets.XY_URL }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -60,17 +64,17 @@ jobs:
           # API token. Must be provided, or username/password as alternative.
           #token: ${{ secrets.XY_DEMO_PRUEBAS_TOKEN }}
 
-          gh_token: ${{ secrets.GH_PAT }}
+          gh_token: ${{ env.GITHUB_PAT }}
           
           # Base URL of the Xygeni API.# optional, default is https://api.xygeni.io
-          xygeni_url: ${{ secrets.XY_DEMO_PRUEBAS_URL }}
+          xygeni_url: ${{ env.XY_URL }}
           
           # Username (using API token is recommended)
-          username: ${{ secrets.XY_DEMO_PRUEBAS_USERNAME }}
+          username: ${{ env.XY_USERNAME }}
           
           # Password (using API token is recommended)
-          password: ${{ secrets.XY_DEMO_PRUEBAS_PASSWORD }}
+          password: ${{ env.XY_PASSWORD }}
           
           # Command to execute by the scanner, optional, default is scan --never-fail -n ${{ github.repository }} -d /app
           # -n ${{ github.repository }}-GHA
-          command: scan --never-fail -n GH-${{ github.event.repository.name }}-push-${{ github.ref }}-GHA -d /app/src 
+          command: scan --never-fail -n GH-${{ github.event.repository.name }}-push-${GITHUB_REF##*/}-GHA -d /app/src 

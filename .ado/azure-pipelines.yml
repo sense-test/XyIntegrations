@@ -1,0 +1,43 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  - name: System.Debug
+    value: true
+  - group: LGV_VAR_DEMO_GROUP
+  - name: vXY_DEMO_PRUEBAS_USERNAME
+    value: $[variables.XY_DEMO_PRUEBAS_USERNAME]
+  - name: vXY_DEMO_PRUEBAS_PASSWORD
+    value: $[variables.XY_DEMO_PRUEBAS_PASSWORD]
+  - name: vXY_DEMO_PRUEBAS_URL
+    value: $[variables.XY_DEMO_PRUEBAS_URL]
+
+stages:
+- stage: Security 
+  jobs:
+  - job: "Xy_Scanner"
+    steps:
+    - task: CmdLine@2
+      displayName: 'Install xygeni scanner'
+      inputs:
+        script: |
+            ls -l
+            java -version
+            whoami
+            pwd 
+            echo $(vXY_DEMO_PRUEBAS_USERNAME)
+            echo $(vXY_DEMO_PRUEBAS_PASSWORD)
+            echo $(vXY_DEMO_PRUEBAS_URL)
+    - task: Bash@3
+      displayName: 'Scan for issues'
+      inputs:
+        targetType: 'inline'
+        script: |
+            pwd
+            curl -L https://get.xygeni.io/latest/scanner/install.sh | /bin/bash -s -- -u $(vXY_DEMO_PRUEBAS_USERNAME) -p $(vXY_DEMO_PRUEBAS_PASSWORD) -s $(vXY_DEMO_PRUEBAS_URL) -d $(Build.SourcesDirectory)/scanner
+            ls -l $(Build.SourcesDirectory)/scanner
+            $(Build.SourcesDirectory)/scanner/xygeni scan --upload -n ADO-$(System.TeamProject)-CMD --dir $(Build.SourcesDirectory)/src      
+            

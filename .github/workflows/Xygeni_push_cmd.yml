@@ -16,6 +16,9 @@ on:
 
 env:
   GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+  XY_USERNAME: ${{ secrets.XY_USERNAME }}
+  XY_PASSWORD: ${{ secrets.XY_PASSWORD }}
+  XY_URL: ${{ secrets.XY_URL }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -38,10 +41,11 @@ jobs:
         run: git log
 
       # Runs a set of commands using the runners shell
+      # curl -L https://get.xygeni.io/latest/scanner/install.sh | /bin/bash -s -- -u ${{ secrets.XY_DEMO_PRUEBAS_USERNAME }} -p ${{ secrets.XY_DEMO_PRUEBAS_PASSWORD }} -s ${{ secrets.XY_DEMO_PRUEBAS_URL }} -d ${GITHUB_WORKSPACE}/scanner
       - name: Download Xygeni Scanner 
         run: |
           echo Downloading Xygeni Scanner ....
-          curl -L https://get.xygeni.io/latest/scanner/install.sh | /bin/bash -s -- -u ${{ secrets.XY_DEMO_PRUEBAS_USERNAME }} -p ${{ secrets.XY_DEMO_PRUEBAS_PASSWORD }} -s ${{ secrets.XY_DEMO_PRUEBAS_URL }} -d ${GITHUB_WORKSPACE}/scanner
+          curl -L https://get.xygeni.io/latest/scanner/install.sh | /bin/bash -s -- -u ${{ env.XY_USERNAME }} -p ${{ env.XY_PASSWORD }} -s ${{ env.XY_URL }} -d ${GITHUB_WORKSPACE}/scanner
           ls -l
 
 

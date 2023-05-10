@@ -53,7 +53,7 @@ stages:
           scaTeam: 'CxServer'
           isEnableScaResolver: true
           pathToScaResolver: $(Build.Repository.LocalPath)
-          scaResolverAddParameters: '-s $(Build.Repository.LocalPath) -n kaka3 -r $(Build.Repository.LocalPath) --cxserver http://172.35.1.19 --cxuser admin --cxpassword KsHPJ8JCD5otOLixmMov_ --cxprojectname $(Build.Repository.Name) --sast-result-path $(Build.Repository.LocalPath)/lgv.txt '
+          scaResolverAddParameters: '-s $(Build.Repository.LocalPath) -n kaka3 -r $(Build.Repository.LocalPath) --cxserver http://xxxxx --cxuser xxx --cxpassword xxxxx --cxprojectname $(Build.Repository.Name) --sast-result-path $(Build.Repository.LocalPath)/lgv.txt '
 
 
  

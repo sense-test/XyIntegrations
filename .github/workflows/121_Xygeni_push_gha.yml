@@ -41,6 +41,7 @@ jobs:
           pwd
           ls -ls
           pwd
+          echo "hola" 
 
       # git -C /home/runner/work/XyIntegrations/XyIntegrations rev-parse --show-toplevel
       # docker run -d -v /home/runner/work/XyIntegrations/XyIntegrations:/app --name lgv_scanner -t xygeni/xygeni_scanner 

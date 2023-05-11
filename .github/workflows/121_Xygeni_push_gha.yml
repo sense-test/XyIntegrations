@@ -39,7 +39,7 @@ jobs:
           echo test, and deploy your project.
           echo ${GITHUB_PAT}
           pwd
-          ls -la
+          ls -ls
 
       # git -C /home/runner/work/XyIntegrations/XyIntegrations rev-parse --show-toplevel
       # docker run -d -v /home/runner/work/XyIntegrations/XyIntegrations:/app --name lgv_scanner -t xygeni/xygeni_scanner 

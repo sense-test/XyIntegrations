@@ -32,6 +32,7 @@ pipeline {
 			        sh 'unzip -o CxConsolePlugin-1.1.18.zip -d CxConsolePlugin'
 			        sh 'rm CxConsolePlugin-1.1.18.zip'
                     sh 'ls -l '
+                    sh 'pwd'
                     sh 'chmod +x ${WORKSPACE}/CxConsolePlugin/runCxConsole.sh'
                     //sh '${WORKSPACE}/CxConsolePlugin/runCxConsole.sh'
                 }

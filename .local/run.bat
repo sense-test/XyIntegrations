@@ -1,7 +1,7 @@
 echo off
 echo on
 set XY_PRJ_NAME=CMD-XyIntegrations-LOCAL-CMD
-set set |findstr PAT=C:\LGV\src\XyIntegrations\XyIntegrations
+set XY_SRC_DIR=C:\LGV\src\XyIntegrations\XyIntegrations
 set XY_SCANNER_DIR=C:\LGV\src\XyIntegrations\test_cmd\scanner
 
 

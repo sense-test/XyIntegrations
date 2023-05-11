@@ -24,6 +24,11 @@ pipeline {
             //    }
             //}
 
+            stage('Pruebas') {
+                steps {
+	                echo "Pruebas 1"
+                }
+            }
 
             stage('Cx CLI download') {
                 steps {

@@ -60,6 +60,8 @@ jobs:
           echo Executing Xygeni scan ....    
           ${GITHUB_WORKSPACE}/scanner/xygeni scan --upload -n GH-${{ github.event.repository.name }}-push-${GITHUB_REF##*/}-CMD --dir ${GITHUB_WORKSPACE} -e **/scanner/**
           echo =======
+          ${GITHUB_WORKSPACE}/scanner/xygeni codetamper --last -u -n GH-${{ github.event.repository.name }}-push-${GITHUB_REF##*/}-CMD --dir ${GITHUB_WORKSPACE} -e **/scanner/**
+          
           ls -al ${GITHUB_WORKSPACE}
           echo =======
           ls -al 
